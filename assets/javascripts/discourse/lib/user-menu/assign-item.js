@@ -11,6 +11,12 @@ export default class UserMenuAssignItem extends UserMenuBaseItem {
   constructor({ assign }) {
     super(...arguments);
     this.assign = assign;
+    this.indirectly_assigned_to = Object.values(
+      this.assign.indirectly_assigned_to || {}
+    )[0]?.assigned_to;
+    this.assigned_to_group =
+      this.assign.assigned_to_group ||
+      this.indirectly_assigned_to?.assign_icon === GROUP_ICON;
   }
 
   get className() {
@@ -26,9 +32,10 @@ export default class UserMenuAssignItem extends UserMenuBaseItem {
   }
 
   get linkTitle() {
-    if (this.assign.assigned_to_group) {
+    if (this.assigned_to_group) {
       return I18n.t("user.assigned_to_group", {
         group_name:
+          this.indirectly_assigned_to?.name ||
           this.assign.assigned_to_group.full_name ||
           this.assign.assigned_to_group.name,
       });
@@ -38,7 +45,7 @@ export default class UserMenuAssignItem extends UserMenuBaseItem {
   }
 
   get icon() {
-    if (this.assign.assigned_to_group) {
+    if (this.assigned_to_group) {
       return GROUP_ICON;
     } else {
       return ICON;
