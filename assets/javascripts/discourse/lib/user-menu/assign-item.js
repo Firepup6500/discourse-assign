@@ -11,12 +11,13 @@ export default class UserMenuAssignItem extends UserMenuBaseItem {
   constructor({ assign }) {
     super(...arguments);
     this.assign = assign;
-    this.indirectly_assigned_to = Object.values(
+    this.indirectlyAssignedTo = Object.values(
       this.assign.indirectly_assigned_to || {}
     )[0]?.assigned_to;
-    this.assigned_to_group =
+    this.assignedToGroup =
       this.assign.assigned_to_group ||
-      this.indirectly_assigned_to?.assign_icon === GROUP_ICON;
+      this.indirectlyAssignedTo?.assign_icon === GROUP_ICON;
+    this.postOrTopic = this.indirectlyAssignedTo ? "post" : "topic";
   }
 
   get className() {
@@ -32,24 +33,22 @@ export default class UserMenuAssignItem extends UserMenuBaseItem {
   }
 
   get linkTitle() {
-    if (this.assigned_to_group) {
-      return I18n.t("user.assigned_to_group", {
+    if (this.assignedToGroup) {
+      return I18n.t(`user.assigned_to_group.${this.postOrTopic}`, {
         group_name:
-          this.indirectly_assigned_to?.name ||
+          this.indirectlyAssignedTo?.name ||
           this.assign.assigned_to_group.full_name ||
           this.assign.assigned_to_group.name,
       });
-    } else {
-      return I18n.t("user.assigned_to_you");
     }
+    return I18n.t(`user.assigned_to_you.${this.postOrTopic}`);
   }
 
   get icon() {
-    if (this.assigned_to_group) {
+    if (this.assignedToGroup) {
       return GROUP_ICON;
-    } else {
-      return ICON;
     }
+    return ICON;
   }
 
   get label() {

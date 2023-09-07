@@ -97,8 +97,12 @@ en:
         <br><br>
         To assign a topic or message to yourself or to someone else, look for the %{icon} assign button at the bottom.
       dismiss_assigned_tooltip: "Mark all unread assign notifications as read"
-      assigned_to_group: "assigned to %{group_name}"
-      assigned_to_you: "assigned to you"
+      assigned_to_group:
+        post: "post assigned to %{group_name}"
+        topic: "topic assigned to %{group_name}"
+      assigned_to_you:
+        post: "post assigned to you"
+        topic: "topic assigned to you"
     admin:
       web_hooks:
         assign_event:
