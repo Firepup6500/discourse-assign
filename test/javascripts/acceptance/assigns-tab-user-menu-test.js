@@ -400,12 +400,12 @@ acceptance("Discourse Assign | user menu", function (needs) {
 
     assert.strictEqual(
       userAssign.querySelector("a").title,
-      I18n.t("user.assigned_to_you"),
+      I18n.t("user.assigned_to_you.topic"),
       "user assign has the right title"
     );
     assert.strictEqual(
       groupAssign.querySelector("a").title,
-      I18n.t("user.assigned_to_group", { group_name: "Team" }),
+      I18n.t("user.assigned_to_group.topic", { group_name: "Team" }),
       "group assign has the right title"
     );
   });
